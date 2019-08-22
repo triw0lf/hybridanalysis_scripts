@@ -27,7 +27,7 @@ ACCEPTFILE='accept: application/json'
 #curl -X GET "https://www.hybrid-analysis.com/api/v2/feed/latest?_timestamp=1562699136960" -H  "accept: application/json" -H  "user-agent: Falcon Sandbox" -H  "api-key: "
 
 # Use the HybridAnalysis API to get the top 250 entries from the last 24hrs, then use jq to filter for any hits that are marked as ''interesting': true' and pipe out to the grab file
-curl -X GET "https://www.hybrid-analysis.com/api/v2/feed/latest?_timestamp="$DATE"" -H ""$ACCEPTFILE"" -H "user-agent: "$USERAGENT"" -H "api-key: "$API"" |  jq '.data[] | select(.interesting == true) | .sha256' -r  > "$GRAB"
+curl -X GET "https://www.hybrid-analysis.com/api/v2/feed/latest?_timestamp="$DATE"" -H ""$ACCEPTFILE"" -H "user-agent: "$USERAGENT"" -H "api-key: "$API"" |  jq '.data[] | select(.interesting == true) | select(.url_analysis == false) | .sha256' -r  > "$GRAB"
 
 # Shuffle the interesting for randomness and send them to the temporary file 
 shuf "$GRAB" > "$TMP"
