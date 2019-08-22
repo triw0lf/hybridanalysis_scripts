@@ -29,7 +29,7 @@ ACCEPTFILE='accept: application/json'
 # Use the HybridAnalysis API to get the top 250 entries from the last 24hrs, then use jq to filter for any hits that are marked as ''interesting': true' and pipe out to the grab file
 curl -X GET "https://www.hybrid-analysis.com/api/v2/feed/latest?_timestamp="$DATE"" -H ""$ACCEPTFILE"" -H "user-agent: "$USERAGENT"" -H "api-key: "$API"" |  jq '.data[] | select(.interesting == true) | .sha256' -r  > "$GRAB"
 
-# Shuffle the non-malicious lines and send them to the temporary file 
+# Shuffle the interesting for randomness and send them to the temporary file 
 shuf "$GRAB" > "$TMP"
 
 # Shuffle the temporary file again, print only the hash lines, then return the top 40 results to the hash download file
