@@ -1,5 +1,6 @@
 #!/bin/bash
-#Grabbing the top 250 hits from HybridAnalysis, looking for interesting tags, then downloading 40 random samples for analysis (because API rate limits)
+# Grabbing the top 250 hits from HybridAnalysis, looking for interesting tags, then downloading 40 random samples for analysis (because API rate limits)
+# Author: Lauren Proehl
 
 # Grabs system date for finding closest API search matches
 DATE=$(date +%s)
